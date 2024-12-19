@@ -2,12 +2,15 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import dts from 'vite-plugin-dts'
+import cssInjectedByJs from 'vite-plugin-css-injected-by-js'
+
 export default defineConfig({
   plugins: [
     react(),
     dts({
       outDir: 'dist/types', // 类型文件输出到 dist/types 目录
-    })
+    }),
+    cssInjectedByJs(), // 使用插件将 CSS 内联到 JS 文件
   ],
   resolve: {
     alias: {
@@ -30,7 +33,6 @@ export default defineConfig({
         },
       },
     },
-    // 将 CSS 提取到 JS 文件
-    cssCodeSplit: false, // 如果需要将多个 CSS 代码合并到一个文件
+    cssCodeSplit: false, // 防止拆分 CSS
   },
 })
