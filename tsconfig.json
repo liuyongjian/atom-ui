@@ -1,19 +1,24 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "component/*": [
+      "@/components/*": [
         "./components/*"
       ]
-    }
-  }
+    },
+    "jsx": "react-jsx",
+    "types": [
+      "react",
+    ],
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": [
+    "components/**/*",
+    "global.d.ts"
+  ]
 }

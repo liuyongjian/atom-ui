@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Composite from 'component/layout/composite';
+import Composite from '@/components/layout/composite';
 
 const meta: Meta<typeof Composite> = {
     title: 'Components/Composite',

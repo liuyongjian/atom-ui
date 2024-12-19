@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
 interface Tab {
     id: string;

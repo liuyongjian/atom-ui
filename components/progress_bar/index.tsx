@@ -1,4 +1,4 @@
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
 interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
     progress: number; // 0 to 100

@@ -1,4 +1,4 @@
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
 interface SpacerProps extends React.HTMLAttributes<HTMLDivElement> {
     /**

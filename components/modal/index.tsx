@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
     isOpen: boolean;

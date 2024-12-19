@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import List from 'component/list';
-import Row from 'component/layout/row';
-import Avatar from 'component/avatar';
+import List from '@/components/list';
+import Row from '@/components/layout/row';
+import Avatar from '@/components/avatar';
 
 const meta: Meta<typeof List> = {
     title: 'Components/List',

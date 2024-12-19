@@ -1,4 +1,4 @@
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
 interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
     type?: 'success' | 'error' | 'warning' | 'info';

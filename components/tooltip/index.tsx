@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPopper } from '@popperjs/core';
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
-interface AdvancedTooltipProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TooltipProps extends React.HTMLAttributes<HTMLDivElement> {
     content: string;
     placement?: 'top' | 'right' | 'bottom' | 'left';
 }
 
-const AdvancedTooltip: React.FC<AdvancedTooltipProps> = ({
+const Tooltip: React.FC<TooltipProps> = ({
     children,
     content,
     placement = 'top',
@@ -61,4 +61,4 @@ const AdvancedTooltip: React.FC<AdvancedTooltipProps> = ({
     );
 };
 
-export default AdvancedTooltip;
+export default Tooltip;

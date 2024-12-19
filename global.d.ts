@@ -1,4 +1,4 @@
-declare module 'component/__styles/index.css' {
+declare module '@/components/__styles/index.css' {
     const content: string;
     export default content;
 }

@@ -1,4 +1,4 @@
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
 interface LayerProps extends React.HTMLAttributes<HTMLDivElement> {
     alignment?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';

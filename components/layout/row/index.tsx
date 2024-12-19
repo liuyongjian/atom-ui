@@ -1,4 +1,4 @@
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
 interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
     justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';

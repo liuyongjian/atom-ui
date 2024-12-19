@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Sidebar from 'component/sidebar';
+import Sidebar from '@/components/sidebar';
 import { HiHome, HiInformationCircle, HiCog, HiMail } from 'react-icons/hi';
 
 const meta: Meta<typeof Sidebar> = {

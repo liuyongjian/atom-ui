@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Layer from 'component/layout/layer';
+import Layer from '@/components/layout/layer';
 
 const meta: Meta<typeof Layer> = {
     title: 'Components/Layer',

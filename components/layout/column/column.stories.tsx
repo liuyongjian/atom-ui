@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Column from 'component/layout/column';
+import Column from '@/components/layout/column';
 
 const meta: Meta<typeof Column> = {
     title: 'Components/Column',

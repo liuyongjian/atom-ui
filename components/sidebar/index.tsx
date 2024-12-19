@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 interface Link {

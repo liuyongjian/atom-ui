@@ -1,4 +1,4 @@
-import { cn } from 'component/__utils';
+import { cn } from '@/components/__utils';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     elevation?: 'none' | 'sm' | 'md' | 'lg';

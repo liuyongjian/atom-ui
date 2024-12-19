@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Button from 'component/button';
+import Button from '@/components/button';
 
 // 定义 Meta 配置
 const meta: Meta<typeof Button> = {
