@@ -56,7 +56,7 @@ const Text: React.FC<TextProps> = ({
     ...props
 }) => {
     return (
-        <span
+        <div
             className={cn(
                 sizeClasses[size],
                 weightClasses[weight],
@@ -71,7 +71,7 @@ const Text: React.FC<TextProps> = ({
             {...props}
         >
             {children}
-        </span>
+        </div>
     );
 };
 

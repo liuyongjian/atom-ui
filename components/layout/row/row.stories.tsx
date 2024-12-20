@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Row from '@/components/layout/row';
+import Row from '@/components/layout/row'; // 确保路径和命名正确
 
 const meta: Meta<typeof Row> = {
     title: 'Components/Row',
     component: Row,
     parameters: {
-        layout: 'centered',
+        layout: 'fullscreen', // 使用 fullscreen 以确保有足够的空间展示 expand
     },
     tags: ['autodocs'],
     argTypes: {
@@ -45,6 +45,12 @@ const meta: Meta<typeof Row> = {
             },
             description: '高度设置（TailwindCSS 类）',
         },
+        expand: {
+            control: {
+                type: 'boolean',
+            },
+            description: '是否在主轴方向上扩展以占据剩余空间',
+        },
         className: {
             control: 'text',
             description: '自定义样式类',
@@ -60,6 +66,7 @@ export const Default: Story = {
         justify: 'start',
         align: 'stretch',
         gap: 4,
+        expand: false,
         className: '',
         children: (
             <>
@@ -76,6 +83,7 @@ export const CenterAligned: Story = {
         justify: 'center',
         align: 'center',
         gap: 8,
+        expand: false,
         className: '',
         children: (
             <>
@@ -93,7 +101,8 @@ export const Customized: Story = {
         align: 'end',
         gap: 12,
         w: 'screen',  // 设置宽度为 screen
-        h: 'full',  // 设置高度为 full
+        h: 'full',    // 设置高度为 full
+        expand: false,
         className: 'bg-gray-100 p-4 rounded',
         children: (
             <>
@@ -102,5 +111,64 @@ export const Customized: Story = {
                 <div className="p-2 bg-red-300">Customized Item 3</div>
             </>
         ),
+    },
+};
+
+export const ExpandExample: Story = {
+    render: (args) => (
+        <div className="flex flex-col h-screen p-4">
+            {/* 其他固定的 Row */}
+            <Row justify="start" align="center" gap={4} className="bg-gray-200 p-2">
+                <div className="p-2 bg-gray-300">Header</div>
+            </Row>
+
+            {/* 可扩展的 Row */}
+            <Row {...args}>
+                <div className="p-2 bg-purple-100">Flexible Content</div>
+                <div className="p-2 bg-purple-200">Flexible Content</div>
+            </Row>
+
+            {/* 其他固定的 Row */}
+            <Row justify="start" align="center" gap={4} className="bg-gray-200 p-2">
+                <div className="p-2 bg-gray-300">Footer</div>
+            </Row>
+        </div>
+    ),
+    args: {
+        justify: 'start',
+        align: 'stretch',
+        gap: 4,
+        expand: true,  // 使 Row 在主轴方向上扩展
+        className: 'bg-yellow-100 p-4',
+    },
+};
+
+export const MixedContent: Story = {
+    render: (args) => (
+        <div className="flex flex-col h-screen p-4">
+            {/* 其他固定的 Row */}
+            <Row justify="start" align="center" gap={4} className="bg-gray-200 p-2">
+                <div className="p-2 bg-gray-300">Header</div>
+            </Row>
+
+            {/* 可扩展的 Row */}
+            <Row {...args}>
+                <div className="p-2 bg-pink-200">Flexible Content</div>
+                <div className="p-2 bg-pink-300">Flexible Content</div>
+                <div className="p-2 bg-pink-400">Flexible Content</div>
+            </Row>
+
+            {/* 其他固定的 Row */}
+            <Row justify="start" align="center" gap={4} className="bg-gray-200 p-2">
+                <div className="p-2 bg-gray-300">Footer</div>
+            </Row>
+        </div>
+    ),
+    args: {
+        justify: 'between',
+        align: 'center',
+        gap: 6,
+        expand: true,
+        className: 'bg-pink-100 p-4',
     },
 };

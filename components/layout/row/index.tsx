@@ -6,6 +6,7 @@ interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
     gap?: number;
     w?: string;  // Tailwind 尺寸类，如 full, 1/2 等
     h?: string;  // Tailwind 尺寸类，如 full, 1/2 等
+    expand?: boolean; // 是否在主轴方向上扩展以占据剩余空间
 }
 
 const justifyMap: Record<NonNullable<RowProps['justify']>, string> = {
@@ -52,6 +53,7 @@ const Row: React.FC<RowProps> = ({
     gap = 4,
     w,  // Tailwind 尺寸类
     h,  // Tailwind 尺寸类
+    expand = false,
     className,
     ...props
 }) => {
@@ -59,6 +61,7 @@ const Row: React.FC<RowProps> = ({
     const widthClass = w ? `w-${w}` : '';  // 例如 'w-full', 'w-1/2'
     const heightClass = h ? `h-${h}` : '';  // 例如 'h-full', 'h-1/2'
     const gapClass = gapMap[gap] || 'gap-4';
+    const expandClass = expand ? 'flex-grow' : '';
 
     return (
         <div
@@ -69,6 +72,7 @@ const Row: React.FC<RowProps> = ({
                 gapClass,
                 widthClass,
                 heightClass,
+                expandClass,
                 className
             )}
             {...props}
