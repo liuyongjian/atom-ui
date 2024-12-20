@@ -1,7 +1,17 @@
 import TableFilter from '@/components/table/table_filter';
 import Image from '@/components/image';
 
-export const columns = [
+// 定义 Column 接口
+interface Column {
+  Header: string | React.ReactNode;
+  accessor: string;
+  disableSortBy?: boolean;
+  disableFilters?: boolean;
+  Filter?: React.ComponentType<any>; // 使用 any 以避免暴露内部类型
+  Cell?: React.FC<any>; // 使用 any 以避免暴露内部类型
+}
+
+export const columns: Column[] = [
   {
     Header: '选择',
     accessor: 'selection',
