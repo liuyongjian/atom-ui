@@ -31,6 +31,20 @@ const meta: Meta<typeof Column> = {
             },
             description: '子元素之间的间距',
         },
+        w: {
+            control: {
+                type: 'select',
+                options: ['auto', 'full', '1/2', 'screen'],
+            },
+            description: '宽度设置（TailwindCSS 类）',
+        },
+        h: {
+            control: {
+                type: 'select',
+                options: ['auto', 'full', 'screen'],
+            },
+            description: '高度设置（TailwindCSS 类）',
+        },
         className: {
             control: 'text',
             description: '自定义样式类',
@@ -78,6 +92,8 @@ export const Customized: Story = {
         justify: 'between',
         align: 'end',
         gap: 12,
+        w: 'screen',  // 设置宽度为 screen
+        h: 'full',  // 设置高度为 full
         className: 'bg-gray-100 p-4 rounded',
         children: (
             <>

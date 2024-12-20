@@ -1,41 +1,76 @@
+import React from 'react';
 import { cn } from '@/components/__utils';
 
 interface PaddingProps extends React.HTMLAttributes<HTMLDivElement> {
     /**
-     * 定义 padding 的大小。可以是 Tailwind CSS 支持的所有 padding 尺寸。
-     * 例如: 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 56, 64
+     * 所有方向的 padding。对应 Tailwind CSS 的 p-{size} 类
      */
-    padding?: number;
+    all?: number;
 
     /**
-     * 定义 padding 的方向。
-     * 可选值包括：'all', 'top', 'right', 'bottom', 'left', 'x', 'y'
+     * 顶部的 padding。对应 Tailwind CSS 的 pt-{size} 类
      */
-    direction?: 'all' | 'top' | 'right' | 'bottom' | 'left' | 'x' | 'y';
+    top?: number;
+
+    /**
+     * 右侧的 padding。对应 Tailwind CSS 的 pr-{size} 类
+     */
+    right?: number;
+
+    /**
+     * 底部的 padding。对应 Tailwind CSS 的 pb-{size} 类
+     */
+    bottom?: number;
+
+    /**
+     * 左侧的 padding。对应 Tailwind CSS 的 pl-{size} 类
+     */
+    left?: number;
+
+    /**
+     * 水平的 padding（左右）。对应 Tailwind CSS 的 px-{size} 类
+     */
+    x?: number;
+
+    /**
+     * 垂直的 padding（上下）。对应 Tailwind CSS 的 py-{size} 类
+     */
+    y?: number;
 }
 
-const directionMap: Record<NonNullable<PaddingProps['direction']>, string> = {
-    all: 'p',
-    top: 'pt',
-    right: 'pr',
-    bottom: 'pb',
-    left: 'pl',
-    x: 'px',
-    y: 'py',
+// 辅助函数：将方向和 padding 数值转换为 Tailwind CSS 类
+const getPaddingClass = (direction: string, padding?: number): string => {
+    if (padding === undefined) return '';
+    return `${direction}-${padding}`;
 };
 
 const Padding: React.FC<PaddingProps> = ({
     children,
-    padding = 4,
-    direction = 'all',
+    all,
+    top,
+    right,
+    bottom,
+    left,
+    x,
+    y,
     className,
     ...props
 }) => {
-    const paddingClass = `${directionMap[direction]}-${padding}`;
+    const paddingClasses = [
+        all !== undefined ? getPaddingClass('p', all) : '',
+        top !== undefined ? getPaddingClass('pt', top) : '',
+        right !== undefined ? getPaddingClass('pr', right) : '',
+        bottom !== undefined ? getPaddingClass('pb', bottom) : '',
+        left !== undefined ? getPaddingClass('pl', left) : '',
+        x !== undefined ? getPaddingClass('px', x) : '',
+        y !== undefined ? getPaddingClass('py', y) : '',
+    ]
+        .filter(Boolean)
+        .join(' ');
 
     return (
         <div
-            className={cn(paddingClass, className)}
+            className={cn(paddingClasses, className)}
             {...props}
         >
             {children}

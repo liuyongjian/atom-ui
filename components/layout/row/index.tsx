@@ -4,6 +4,8 @@ interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
     justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
     align?: 'start' | 'center' | 'end' | 'stretch';
     gap?: number;
+    w?: string;  // Tailwind 尺寸类，如 full, 1/2 等
+    h?: string;  // Tailwind 尺寸类，如 full, 1/2 等
 }
 
 const justifyMap: Record<NonNullable<RowProps['justify']>, string> = {
@@ -48,9 +50,14 @@ const Row: React.FC<RowProps> = ({
     justify = 'start',
     align = 'stretch',
     gap = 4,
+    w,  // Tailwind 尺寸类
+    h,  // Tailwind 尺寸类
     className,
     ...props
 }) => {
+    // 将 w 和 h 转换为完整的 Tailwind 类名
+    const widthClass = w ? `w-${w}` : '';  // 例如 'w-full', 'w-1/2'
+    const heightClass = h ? `h-${h}` : '';  // 例如 'h-full', 'h-1/2'
     const gapClass = gapMap[gap] || 'gap-4';
 
     return (
@@ -60,6 +67,8 @@ const Row: React.FC<RowProps> = ({
                 justifyMap[justify],
                 alignMap[align],
                 gapClass,
+                widthClass,
+                heightClass,
                 className
             )}
             {...props}
