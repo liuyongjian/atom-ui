@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, useEffect } from 'react';
-import ProgressBar from '@/components/progress_bar';
+import ProgressBar from '.';
 
 const meta: Meta<typeof ProgressBar> = {
     title: 'Components/ProgressBar',
     component: ProgressBar,
     parameters: {
-        layout: 'centered',
+        layout: 'fullscreen',
     },
     tags: ['autodocs'],
     argTypes: {
