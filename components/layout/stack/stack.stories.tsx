@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Layer from '@/components/layout/layer';
+import Stack from '@/components/layout/stack';
 
-const meta: Meta<typeof Layer> = {
-    title: 'Components/Layer',
-    component: Layer,
+const meta: Meta<typeof Stack> = {
+    title: 'Components/Stack',
+    component: Stack,
     parameters: {
         layout: 'centered',
     },
@@ -21,7 +21,7 @@ const meta: Meta<typeof Layer> = {
             description: '自定义样式类',
         },
     },
-} satisfies Meta<typeof Layer>;
+} satisfies Meta<typeof Stack>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

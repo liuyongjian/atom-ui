@@ -1,6 +1,6 @@
 import { cn } from '@/components/__utils';
 
-interface LayerProps extends React.HTMLAttributes<HTMLDivElement> {
+interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
     alignment?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
 }
 
@@ -12,7 +12,7 @@ const alignmentMap = {
     center: 'items-center justify-center',
 };
 
-const Layer: React.FC<LayerProps> = ({
+const Stack: React.FC<StackProps> = ({
     children,
     alignment = 'center',
     className,
@@ -32,4 +32,4 @@ const Layer: React.FC<LayerProps> = ({
     );
 };
 
-export default Layer;
+export default Stack;
