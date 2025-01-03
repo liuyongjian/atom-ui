@@ -1,4 +1,3 @@
-import React from 'react';
 import { cn } from '@/components/__utils';
 
 interface PaddingProps extends React.HTMLAttributes<HTMLDivElement> {

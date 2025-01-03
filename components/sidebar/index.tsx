@@ -19,26 +19,29 @@ interface SidebarProps {
 
 interface SidebarItemProps {
     link: Link;
-    active?: boolean;
-    onClick?: () => void;
+    activePath?: string;
+    onClick?: (href: string) => void;
 }
 
 // 单独封装的 SidebarItem 组件
-const SidebarItem: React.FC<SidebarItemProps> = ({ link, active, onClick }) => {
-    const [isExpanded, setExpanded] = useState(false);
+const SidebarItem: React.FC<SidebarItemProps> = ({ link, activePath, onClick }) => {
+    const [isExpanded, setExpanded] = useState(
+        link.children?.some(child => child.href === activePath) || false // 初始化为展开状态
+    );
 
     return (
         <div>
             <div
                 className={cn(
                     'flex items-center justify-between px-4 py-2 cursor-pointer rounded-md',
-                    active ? 'bg-gray-200 text-blue-500' : 'hover:bg-gray-100 hover:text-blue-500'
+                    activePath === link.href ? 'bg-gray-200 text-blue-500' : 'hover:bg-gray-100 hover:text-blue-500'
                 )}
                 onClick={() => {
                     if (link.children) {
-                        setExpanded(!isExpanded);
+                        setExpanded(!isExpanded); // 有子项时展开或折叠
+                    } else if (onClick && link.href) {
+                        onClick(link.href); // 无子项时执行跳转
                     }
-                    if (onClick) onClick();
                 }}
             >
                 <span>{link.name}</span>
@@ -63,8 +66,8 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ link, active, onClick }) => {
                         <SidebarItem
                             key={child.name}
                             link={child}
-                            active={false}
-                            onClick={onClick}
+                            activePath={activePath} // 子项激活逻辑
+                            onClick={onClick} // 点击子项时跳转
                         />
                     ))}
                 </motion.div>
@@ -80,6 +83,13 @@ const Sidebar: React.FC<SidebarProps> = ({
     logo,
     className = '',
 }) => {
+    const [currentActivePath, setCurrentActivePath] = useState(activePath);
+
+    const handleLinkClick = (href: string) => {
+        setCurrentActivePath(href); // 更新激活路径
+        onLinkClick?.(href); // 调用外部传入的回调
+    };
+
     return (
         <div
             className={cn(
@@ -98,8 +108,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                     <SidebarItem
                         key={link.name}
                         link={link}
-                        active={activePath === link.href}
-                        onClick={() => onLinkClick?.(link.href)}
+                        activePath={currentActivePath}
+                        onClick={handleLinkClick}
                     />
                 ))}
             </nav>
