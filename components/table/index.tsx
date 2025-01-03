@@ -71,7 +71,7 @@ const Table = <T extends object>({
     };
 
     return (
-        <div className={cn('overflow-x-auto', className)}>
+        <div className={cn('overflow-x-auto w-full', className)}>
             <table {...getTableProps()} className="min-w-full divide-y divide-gray-200">
                 <TableHeader
                     headerGroups={headerGroups}

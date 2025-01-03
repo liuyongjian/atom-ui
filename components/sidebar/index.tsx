@@ -1,103 +1,109 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'framer-motion';
 import { cn } from '@/components/__utils';
-import { HiMenu, HiX } from 'react-icons/hi';
+import { FaChevronRight } from 'react-icons/fa';
 
 interface Link {
     name: string;
     href: string;
+    children?: Link[];
 }
 
 interface SidebarProps {
-    links: Link[]; // 将 links 作为必需的 props
-    logo?: React.ReactNode;
+    links: Link[]; // 导航链接
+    activePath?: string; // 当前激活的路径
+    onLinkClick?: (href: string) => void; // 链接点击回调
+    logo?: React.ReactNode; // 可选的 Logo
+    className?: string; // 容器样式
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ links, logo }) => {
-    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+interface SidebarItemProps {
+    link: Link;
+    active?: boolean;
+    onClick?: () => void;
+}
 
-    const toggleMobileMenu = () => {
-        setMobileMenuOpen((prev) => !prev);
-        // 禁止或允许背景滚动
-        document.body.style.overflow = isMobileMenuOpen ? 'auto' : 'hidden';
-    };
+// 单独封装的 SidebarItem 组件
+const SidebarItem: React.FC<SidebarItemProps> = ({ link, active, onClick }) => {
+    const [isExpanded, setExpanded] = useState(false);
 
     return (
-        <nav className="bg-white shadow-md fixed w-full z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16">
-                    {/* Logo */}
-                    <div className="flex-shrink-0 flex items-center">
-                        {logo ? logo : <span className="text-xl font-bold">MyLogo</span>}
-                    </div>
+        <div>
+            <div
+                className={cn(
+                    'flex items-center justify-between px-4 py-2 cursor-pointer rounded-md',
+                    active ? 'bg-gray-200 text-blue-500' : 'hover:bg-gray-100 hover:text-blue-500'
+                )}
+                onClick={() => {
+                    if (link.children) {
+                        setExpanded(!isExpanded);
+                    }
+                    if (onClick) onClick();
+                }}
+            >
+                <span>{link.name}</span>
+                {link.children && (
+                    <motion.span
+                        initial={{ rotate: 0 }}
+                        animate={{ rotate: isExpanded ? 90 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="text-gray-500"
+                    >
+                        <FaChevronRight className="w-4 h-4" />
+                    </motion.span>
+                )}
+            </div>
+            {link.children && (
+                <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: isExpanded ? 'auto' : 0 }}
+                    className="overflow-hidden pl-4"
+                >
+                    {link.children.map((child) => (
+                        <SidebarItem
+                            key={child.name}
+                            link={child}
+                            active={false}
+                            onClick={onClick}
+                        />
+                    ))}
+                </motion.div>
+            )}
+        </div>
+    );
+};
 
-                    {/* Desktop Menu */}
-                    <div className="hidden md:flex md:items-center">
-                        <div className="ml-10 flex items-baseline space-x-4">
-                            {links.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    className={cn(
-                                        'px-3 py-2 rounded-md text-sm font-medium',
-                                        'text-gray-700 hover:text-blue-500',
-                                    )}
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <div className="flex items-center md:hidden">
-                        <button
-                            onClick={toggleMobileMenu}
-                            className="p-2 rounded-md text-gray-700 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
-                            aria-label="Toggle menu"
-                            aria-expanded={isMobileMenuOpen}
-                            aria-controls="mobile-menu"
-                        >
-                            {isMobileMenuOpen ? (
-                                <HiX className="h-6 w-6" />
-                            ) : (
-                                <HiMenu className="h-6 w-6" />
-                            )}
-                        </button>
-                    </div>
-                </div>
+const Sidebar: React.FC<SidebarProps> = ({
+    links,
+    activePath,
+    onLinkClick,
+    logo,
+    className = '',
+}) => {
+    return (
+        <div
+            className={cn(
+                'flex flex-col w-64 h-screen bg-gray-50 text-gray-800 border-r border-gray-200',
+                className
+            )}
+        >
+            {/* Logo 区域 */}
+            <div className="flex items-center h-16 px-4 border-b border-gray-200">
+                {logo ? logo : <span className="text-xl font-bold">MyLogo</span>}
             </div>
 
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <motion.div
-                        className="md:hidden bg-white shadow-lg"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        id="mobile-menu"
-                    >
-                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                            {links.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    className={cn(
-                                        'block px-3 py-2 rounded-md text-base font-medium',
-                                        'text-gray-700 hover:text-blue-500 hover:bg-gray-50',
-                                    )}
-                                    onClick={() => setMobileMenuOpen(false)} // 点击链接后关闭菜单
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </nav>
+            {/* 导航菜单 */}
+            <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+                {links.map((link) => (
+                    <SidebarItem
+                        key={link.name}
+                        link={link}
+                        active={activePath === link.href}
+                        onClick={() => onLinkClick?.(link.href)}
+                    />
+                ))}
+            </nav>
+        </div>
     );
 };
 
