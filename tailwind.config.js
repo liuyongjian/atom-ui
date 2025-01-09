@@ -4,11 +4,6 @@ module.exports = {
 	content: ["./components/**/*.{ts,tsx,js,jsx}"],
 	theme: {
 		extend: {
-			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
-			},
 			colors: {
 				primary: {
 					10: '#93c5fd', // 浅蓝
@@ -35,7 +30,7 @@ module.exports = {
 	},
 	safelist: [
 		{
-			pattern: /^(gap|p|pt|pr|pb|pl|px|py)-\d+$/,
+			pattern: /^w-\[\d+(px|%)\]$/, // 暂时不支持这种 'w-[..]' 匹配
 		},
 	],
 	plugins: [require("tailwindcss-animate")],
