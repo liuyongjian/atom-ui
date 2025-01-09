@@ -68,6 +68,9 @@ const Card: CardComponent = ({
     ...props
 }) => {
     // 处理宽度 w，支持字符串和数字
+    // w属性设置有问题，后序优化
+    // 避免动态生成类名，因为这会导致 JIT 模式无法正确提取到这些类名，从而无法生成相应的 CSS。
+    // 动态生成类名的做法（比如字符串拼接）可能导致类名无法被 Tailwind 检测到，并且也违背了 Tailwind 的“只写使用到的类”的原则。
     let widthClass = '';
 
     if (typeof w === 'string') {
